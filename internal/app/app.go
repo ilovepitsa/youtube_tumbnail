@@ -1,19 +1,28 @@
 package app
 
 import (
-	"fmt"
-	"net/http"
+	"youtube-tumbnail-grpc/config"
+	"youtube-tumbnail-grpc/pkg/repo/redis"
+
+	log "github.com/sirupsen/logrus"
 )
 
 func Run(configPath string) error {
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprint(w, "Hello world!")
-	})
-
-	if err := http.ListenAndServe("0.0.0.0:8080", nil); err != nil {
+	cfg, err := config.NewConfig(configPath)
+	if err != nil {
 		return err
 	}
 
+	SetLogrus(cfg.Log)
+
+	r, err := redis.New(cfg.R)
+	if err != nil {
+		return err
+	}
+
+	defer r.Close()
+
+	log.Info("Initialize redis")
 	return nil
 }

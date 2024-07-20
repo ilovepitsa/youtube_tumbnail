@@ -1,13 +1,13 @@
 services:
-  postgres:
-    image: postgres
-    container_name: postgres
+  redis:
+    image: redis
+    container_name: redis
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      - redis_data:/root/redis
     env_file:
       - .env
     ports:
-      - "5432:5432"
+      - "6379:6379"
     restart: unless-stopped
 
   app:
@@ -16,9 +16,14 @@ services:
     volumes:
       - "./logs:/logs"
       - "./secrets:/secrets"
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+    depends_on:
+      - redis
     env_file:
       - .env
+    restart: unless-stopped
       
 
 volumes:
-  pg_data:
+  redis_data:

@@ -18,19 +18,13 @@ const (
 	defaultConnTimeout  = time.Second
 )
 
-type (
-	cacheObject struct {
-		Data []byte
-	}
-
-	Redis struct {
-		mtx          sync.RWMutex
-		client       *redis.Client
-		cache        *cache.Cache
-		connAttempts int
-		connTimeout  time.Duration
-	}
-)
+type Redis struct {
+	mtx          sync.RWMutex
+	client       *redis.Client
+	cache        *cache.Cache
+	connAttempts int
+	connTimeout  time.Duration
+}
 
 func New(config config.Redis) (*Redis, error) {
 	r := &Redis{
@@ -70,7 +64,7 @@ func (r *Redis) Cache(key string, data []byte) error {
 
 	r.mtx.Lock()
 	defer r.mtx.Unlock()
-	obj := &cacheObject{}
+	obj := &repo.ThumbnailObject{}
 
 	copy(obj.Data, data)
 	err := r.cache.Set(&cache.Item{
@@ -84,7 +78,7 @@ func (r *Redis) Cache(key string, data []byte) error {
 
 func (r *Redis) GetCache(key string) ([]byte, error) {
 
-	var res cacheObject
+	var res repo.ThumbnailObject
 	r.mtx.RLock()
 	defer r.mtx.RUnlock()
 	if err := r.cache.Get(context.TODO(), key, &res); err != nil {

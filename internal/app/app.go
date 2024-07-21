@@ -25,8 +25,10 @@ func Run(configPath string) error {
 	}
 	defer r.Close()
 
-	youtubeService := service.New(cfg.YoutubeAPI.YoutubeConfigFilePath, r)
+	log.Info("Initializeng youtube service")
+	youtubeService := service.New(cfg.YoutubeAPI.YoutubeConfigFilePath)
 
-	log.Info(youtubeService.GetInfo("NA7NDdW7Lvw"))
+	log.Info("Getting thumbnail")
+	log.Info(youtubeService.GetThumbnailURL("NA7NDdW7Lvw"))
 	return nil
 }

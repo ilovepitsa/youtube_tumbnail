@@ -3,7 +3,6 @@ package service
 import (
 	"context"
 	"os"
-	"youtube-tumbnail-grpc/pkg/repo"
 
 	log "github.com/sirupsen/logrus"
 	"google.golang.org/api/option"
@@ -12,7 +11,6 @@ import (
 )
 
 type Youtube struct {
-	cacheRepo   repo.CacheRepo
 	client      *youtube.Service
 	isAvailable bool
 }
@@ -30,7 +28,7 @@ func readSecretFile(path string) credentialAPI {
 	}
 
 	apiKkey := credentialAPI{}
-	err = yaml.Unmarshal(file, apiKkey)
+	err = yaml.Unmarshal(file, &apiKkey)
 	if err != nil {
 		log.Info("cant unmarshal key")
 		return credentialAPI{}
@@ -38,20 +36,18 @@ func readSecretFile(path string) credentialAPI {
 	return apiKkey
 }
 
-func New(pathString string, cacheRepo repo.CacheRepo) *Youtube {
+func New(pathString string) *Youtube {
 
 	if pathString == "" {
 		return &Youtube{
 			isAvailable: false,
-			cacheRepo:   cacheRepo,
 		}
 	}
 
 	apiKey := readSecretFile(pathString)
-	if apiKey.APIKey != "" {
+	if apiKey.APIKey == "" {
 		return &Youtube{
 			isAvailable: false,
-			cacheRepo:   cacheRepo,
 		}
 	}
 
@@ -62,18 +58,30 @@ func New(pathString string, cacheRepo repo.CacheRepo) *Youtube {
 	if err != nil {
 		return &Youtube{
 			isAvailable: false,
-			cacheRepo:   cacheRepo,
 		}
 	}
 
 	return &Youtube{
 		client:      youtubeService,
 		isAvailable: true,
-		cacheRepo:   cacheRepo,
 	}
 
 }
 
-func (y *Youtube) GetInfo(id string) string {
+func (y *Youtube) GetThumbnailURL(id string) string {
+	if !y.isAvailable {
+		return ""
+	}
+	log.Debug("Getting video list")
+	call := y.client.Videos.List([]string{"snippet"}).Id(id)
 
+	log.Debug("Call do")
+	responce, err := call.Do()
+	if err != nil {
+		log.Error(err)
+		return ""
+	}
+
+	log.Debug(responce)
+	return responce.Items[0].Snippet.Thumbnails.Standard.Url
 }

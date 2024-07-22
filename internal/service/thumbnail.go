@@ -52,5 +52,5 @@ func (t *Thumbnails) GetThumbnail(id string) ([]byte, error) {
 	}
 	go t.cacheRepo.Cache(id, body)
 
-	return body, err
+	return body, nil
 }

@@ -12,7 +12,7 @@ services:
 
   app:
     build: .
-    container_name: youtube-tumbnails
+    container_name: youtube-thumbnails
     volumes:
       - "./logs:/logs"
       - "./secrets:/secrets"

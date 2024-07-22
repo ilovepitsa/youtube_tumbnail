@@ -6,6 +6,6 @@ type (
 	}
 
 	ThumbnailsService interface {
-		GetThumbnail(string) ([]byte, error)
+		GetThumbnail(id string) ([]byte, error)
 	}
 )

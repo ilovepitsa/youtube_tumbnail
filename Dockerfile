@@ -1,4 +1,4 @@
-FROM golang:1.22.1
+FROM golang:1.22.5
 #set workdir
 WORKDIR /app
 
@@ -23,7 +23,7 @@ RUN export PATH="$PATH:$(go env GOPATH)/bin"
 
 RUN protoc --go_out=. --go_opt=paths=source_relative \
         --go-grpc_out=. --go-grpc_opt=paths=source_relative \
-        internal/handlers/grpc/thumbnail.proto 
+        internal/handlers/grpc/thumbnail/thumbnail.proto 
 
 
 

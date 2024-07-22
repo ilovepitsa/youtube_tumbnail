@@ -17,6 +17,7 @@ type (
 
 	App struct {
 		Name string `yaml:"name" env:"APP_NAME" env-required:"true"`
+		MaxWorkerPoolSize int `yaml:"max_workers"`
 	}
 
 	Network struct {

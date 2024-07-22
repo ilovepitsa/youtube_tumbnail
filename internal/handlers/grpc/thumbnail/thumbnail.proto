@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option go_package = "youtube-tumbnail-grpc/internal/handlers/grpc/thumbnail";
+
+package thumbnail;
+
+service Thumbnails {
+    rpc GetThumbnail(ThumbnailRequest) returns (ThumbnailResponce) {}
+    rpc GetThumbnailsAsync(stream ThumbnailRequest) returns (stream ThumbnailResponce) {}
+}
+
+message ThumbnailRequest{
+    string id = 1;
+}
+
+message ThumbnailResponce{
+    bytes data = 1;
+}

@@ -1,5 +1,6 @@
 app:
   name: "youtube-tumbnails"
+  max_workers: 5
 
 network:
   host: "0.0.0.0"
@@ -10,5 +11,5 @@ redis:
 
 log:
   level:  "debug"
-  is_json: true
+  is_json: false
 

@@ -15,7 +15,7 @@ type ThumbnailGRPSServer struct {
 	thService     service.ThumbnailsService
 }
 
-func NewServer(thService service.ThumbnailsService, maxWorkerPool int) *ThumbnailGRPSServer {
+func NewServerThumb(thService service.ThumbnailsService, maxWorkerPool int) *ThumbnailGRPSServer {
 	return &ThumbnailGRPSServer{
 		thService:     thService,
 		maxWorkerPool: maxWorkerPool,
@@ -98,7 +98,6 @@ func (ts *ThumbnailGRPSServer) GetThumbnailAsync(stream pb.Thumbnails_GetThumbna
 		if err != nil {
 			return err
 		}
-
 		select {
 		case err := <-errCh:
 			return err

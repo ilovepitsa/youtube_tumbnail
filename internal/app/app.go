@@ -3,11 +3,11 @@ package app
 import (
 	"fmt"
 	"net"
-	"youtube-tumbnail-grpc/config"
-	grpcTh "youtube-tumbnail-grpc/internal/handlers/grpc"
-	"youtube-tumbnail-grpc/internal/service"
-	pb "youtube-tumbnail-grpc/pkg/handlers/grpc/thumbnail"
-	"youtube-tumbnail-grpc/pkg/repo/redis"
+	"youtube_tumbnail/config"
+	grpcTh "youtube_tumbnail/internal/handlers/grpc"
+	"youtube_tumbnail/internal/service"
+	pb "youtube_tumbnail/pkg/handlers/grpc/thumbnail"
+	"youtube_tumbnail/pkg/repo/redis"
 
 	"google.golang.org/grpc"
 

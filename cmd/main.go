@@ -1,8 +1,8 @@
 package main
 
 import (
-	"youtube-tumbnail-grpc/internal/app"
 	"log"
+	"youtube_tumbnail/internal/app"
 )
 
 const defaultConfigPath = "config/config.yaml"

@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"sync"
 	"time"
-	"youtube-tumbnail-grpc/config"
-	"youtube-tumbnail-grpc/pkg/repo"
+	"youtube_tumbnail/config"
+	"youtube_tumbnail/pkg/repo"
 
 	"github.com/go-redis/cache/v9"
 	"github.com/redis/go-redis/v9"

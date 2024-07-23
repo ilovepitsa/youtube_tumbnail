@@ -6,6 +6,11 @@ import (
 	"github.com/ilyakaznacheev/cleanenv"
 )
 
+// import (
+//
+//	pb "github.com/ilovepitsa/youtube_tumbnail/internal/grpc/thumbnail"
+//
+// )
 type (
 	Config struct {
 		Application App     `yaml:"app"`
@@ -16,8 +21,8 @@ type (
 	}
 
 	App struct {
-		Name string `yaml:"name" env:"APP_NAME" env-required:"true"`
-		MaxWorkerPoolSize int `yaml:"max_workers"`
+		Name              string `yaml:"name" env:"APP_NAME" env-required:"true"`
+		MaxWorkerPoolSize int    `yaml:"max_workers"`
 	}
 
 	Network struct {

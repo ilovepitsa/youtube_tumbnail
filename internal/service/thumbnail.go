@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"youtube-tumbnail-grpc/pkg/repo"
+	"youtube_tumbnail/pkg/repo"
 )
 
 type Thumbnails struct {

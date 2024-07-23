@@ -2,7 +2,7 @@ package app
 
 import (
 	"os"
-	"youtube-tumbnail-grpc/config"
+	"youtube_tumbnail/config"
 
 	"github.com/sirupsen/logrus"
 )

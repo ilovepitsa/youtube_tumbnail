@@ -1,4 +1,4 @@
-module youtube-tumbnail-grpc
+module youtube_tumbnail
 
 go 1.22.1
 

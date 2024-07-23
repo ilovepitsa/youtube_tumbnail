@@ -4,9 +4,9 @@ import (
 	"context"
 	"io"
 	"sync"
-	pb "youtube-tumbnail-grpc/internal/handlers/grpc/thumbnail"
-	"youtube-tumbnail-grpc/internal/service"
-	"youtube-tumbnail-grpc/pkg/repo"
+	"youtube_tumbnail/internal/service"
+	pb "youtube_tumbnail/pkg/handlers/grpc/thumbnail"
+	"youtube_tumbnail/pkg/repo"
 )
 
 type ThumbnailGRPSServer struct {

@@ -5,7 +5,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"youtube_tumbnail/pkg/repo"
+
+	"github.com/ilovepitsa/youtube_tumbnail/pkg/repo"
 )
 
 type Thumbnails struct {
@@ -21,14 +22,14 @@ func NewThumbnails(cacheRepo repo.CacheRepo, source MediaSource) *Thumbnails {
 }
 
 func (t *Thumbnails) readThumbnail(url string) ([]byte, error) {
-	buf := new(bytes.Buffer)
+	var buf bytes.Buffer
 	responce, err := http.Get(url)
 	if err != nil {
 		return nil, err
 	}
 	defer responce.Body.Close()
 
-	if _, err := io.Copy(buf, responce.Body); err != nil {
+	if _, err := io.Copy(&buf, responce.Body); err != nil {
 		return nil, fmt.Errorf("cant read image: %w", err)
 	}
 	return buf.Bytes(), nil

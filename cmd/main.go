@@ -2,7 +2,8 @@ package main
 
 import (
 	"log"
-	"youtube_tumbnail/internal/app"
+
+	"github.com/ilovepitsa/youtube_tumbnail/internal/app"
 )
 
 const defaultConfigPath = "config/config.yaml"

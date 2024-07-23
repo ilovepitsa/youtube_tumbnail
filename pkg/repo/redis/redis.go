@@ -5,8 +5,9 @@ import (
 	"fmt"
 	"sync"
 	"time"
-	"youtube_tumbnail/config"
-	"youtube_tumbnail/pkg/repo"
+
+	"github.com/ilovepitsa/youtube_tumbnail/config"
+	"github.com/ilovepitsa/youtube_tumbnail/pkg/repo"
 
 	"github.com/go-redis/cache/v9"
 	"github.com/redis/go-redis/v9"
@@ -64,9 +65,11 @@ func (r *Redis) Cache(key string, data []byte) error {
 
 	r.mtx.Lock()
 	defer r.mtx.Unlock()
-	obj := &repo.ThumbnailObject{}
+	obj := &repo.ThumbnailObject{Data: data}
 
-	copy(obj.Data, data)
+	log.Info("Input data: ", len(data))
+	// copy(obj.Data, data)
+	log.Info("Copied data: ", len(obj.Data))
 	err := r.cache.Set(&cache.Item{
 		Key:   key,
 		Value: obj,

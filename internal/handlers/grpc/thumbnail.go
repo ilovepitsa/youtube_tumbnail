@@ -4,8 +4,8 @@ import (
 	"context"
 	"io"
 	"sync"
-	pb "youtube-tumbnail-grpc/internal/handlers/grpc/thumbnail"
 	"youtube-tumbnail-grpc/internal/service"
+	pb "youtube-tumbnail-grpc/pkg/handlers/grpc/thumbnail"
 	"youtube-tumbnail-grpc/pkg/repo"
 )
 

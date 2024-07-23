@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "youtube-tumbnail-grpc/internal/handlers/grpc/thumbnail";
+option go_package = "youtube-tumbnail-grpc/pkg/handlers/grpc/thumbnail";
 
 package thumbnail;
 

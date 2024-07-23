@@ -5,8 +5,8 @@ import (
 	"net"
 	"youtube-tumbnail-grpc/config"
 	grpcTh "youtube-tumbnail-grpc/internal/handlers/grpc"
-	pb "youtube-tumbnail-grpc/internal/handlers/grpc/thumbnail"
 	"youtube-tumbnail-grpc/internal/service"
+	pb "youtube-tumbnail-grpc/pkg/handlers/grpc/thumbnail"
 	"youtube-tumbnail-grpc/pkg/repo/redis"
 
 	"google.golang.org/grpc"

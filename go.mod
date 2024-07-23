@@ -1,4 +1,4 @@
-module youtube_tumbnail
+module github.com/ilovepitsa/youtube_tumbnail
 
 go 1.22.1
 

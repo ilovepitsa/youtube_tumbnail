@@ -4,9 +4,11 @@ import (
 	"context"
 	"io"
 	"sync"
-	"youtube_tumbnail/internal/service"
-	pb "youtube_tumbnail/pkg/handlers/grpc/thumbnail"
-	"youtube_tumbnail/pkg/repo"
+
+	"github.com/ilovepitsa/youtube_tumbnail/internal/service"
+	pb "github.com/ilovepitsa/youtube_tumbnail/pkg/handlers/grpc/thumbnail"
+	"github.com/ilovepitsa/youtube_tumbnail/pkg/repo"
+	log "github.com/sirupsen/logrus"
 )
 
 type ThumbnailGRPSServer struct {
@@ -34,6 +36,7 @@ LOOP:
 		case id := <-in:
 			res, err := th.thService.GetThumbnail(id)
 			if err != nil {
+				errCh <- err
 				return
 			}
 			out <- repo.ThumbnailObject{Data: res}
@@ -43,15 +46,17 @@ LOOP:
 }
 
 func (ts *ThumbnailGRPSServer) GetThumbnail(ctx context.Context, r *pb.ThumbnailRequest) (*pb.ThumbnailResponce, error) {
+
+	log.Info("new call")
 	thumbnail, err := ts.thService.GetThumbnail(r.Id)
 	if err != nil {
-		return nil, err
+		return &pb.ThumbnailResponce{Data: nil}, err
 	}
 
 	return &pb.ThumbnailResponce{Data: thumbnail}, err
 }
 
-func (ts *ThumbnailGRPSServer) GetThumbnailAsync(stream pb.Thumbnails_GetThumbnailsAsyncServer) error {
+func (ts *ThumbnailGRPSServer) GetThumbnailsAsync(stream pb.Thumbnails_GetThumbnailsAsyncServer) error {
 
 	jobs := make(chan string, ts.maxWorkerPool/2+1)
 	result := make(chan repo.ThumbnailObject, ts.maxWorkerPool/2+1)

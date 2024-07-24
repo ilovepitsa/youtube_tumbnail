@@ -2,7 +2,8 @@ package app
 
 import (
 	"os"
-	"youtube_tumbnail/config"
+
+	"github.com/ilovepitsa/youtube_tumbnail/config"
 
 	"github.com/sirupsen/logrus"
 )

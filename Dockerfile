@@ -25,9 +25,6 @@ RUN protoc --go_out=. --go_opt=paths=source_relative \
         --go-grpc_out=. --go-grpc_opt=paths=source_relative \
         pkg/handlers/grpc/thumbnail/thumbnail.proto 
 
-
-
-
 EXPOSE 8080
 
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \

@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 	"os"
 
 	log "github.com/sirupsen/logrus"
@@ -69,19 +70,18 @@ func New(pathString string) *Youtube {
 }
 
 func (y *Youtube) GetThumbnailURL(id string) string {
-	if !y.isAvailable {
+	if !y.isAvailable || id == "" {
 		return ""
 	}
 	log.Debug("Getting video list")
 	call := y.client.Videos.List([]string{"snippet"}).Id(id)
 
-	log.Debug("Call do")
+	log.Debug(fmt.Sprintf("Call do with id %v", id))
 	responce, err := call.Do()
 	if err != nil {
 		log.Error(err)
 		return ""
 	}
 
-	log.Debug(responce)
 	return responce.Items[0].Snippet.Thumbnails.Standard.Url
 }

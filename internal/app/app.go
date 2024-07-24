@@ -3,11 +3,12 @@ package app
 import (
 	"fmt"
 	"net"
-	"youtube_tumbnail/config"
-	grpcTh "youtube_tumbnail/internal/handlers/grpc"
-	"youtube_tumbnail/internal/service"
-	pb "youtube_tumbnail/pkg/handlers/grpc/thumbnail"
-	"youtube_tumbnail/pkg/repo/redis"
+
+	"github.com/ilovepitsa/youtube_tumbnail/config"
+	grpcTh "github.com/ilovepitsa/youtube_tumbnail/internal/handlers/grpc"
+	"github.com/ilovepitsa/youtube_tumbnail/internal/service"
+	pb "github.com/ilovepitsa/youtube_tumbnail/pkg/handlers/grpc/thumbnail"
+	"github.com/ilovepitsa/youtube_tumbnail/pkg/repo/redis"
 
 	"google.golang.org/grpc"
 
@@ -41,7 +42,9 @@ func Run(configPath string) error {
 	grpcThumbnail := grpcTh.NewServerThumb(thumb, cfg.Application.MaxWorkerPoolSize)
 
 	log.Info("Initializing thumbnail grpc.....")
-	grpcServer := grpc.NewServer()
+	var opts []grpc.ServerOption
+
+	grpcServer := grpc.NewServer(opts...)
 
 	log.Info("Starting listing tcp ", fmt.Sprintf("%v:%v", cfg.Net.Host, cfg.Net.Port))
 	lis, err := net.Listen("tcp", fmt.Sprintf("%v:%v", cfg.Net.Host, cfg.Net.Port))

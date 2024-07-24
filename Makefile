@@ -1,6 +1,6 @@
 include .env
 
-.PHONY: compose-up compose-down restart test cover-html cover
+.PHONY: compose-up compose-down restart test cover-html cover build
 compose-up:
 	docker compose up --build -d
 
@@ -24,4 +24,7 @@ cover: ### run test with coverage
 	go test -coverprofile=coverage.out ./...
 	go tool cover -func=coverage.out
 	rm coverage.out
+build:
+	mkdir -p ./build
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ./build/app ./cmd
 

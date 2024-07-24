@@ -36,6 +36,7 @@ LOOP:
 		case id := <-in:
 			res, err := th.thService.GetThumbnail(id)
 			if err != nil {
+				errCh <- err
 				return
 			}
 			out <- repo.ThumbnailObject{Data: res}
@@ -116,6 +117,6 @@ func (ts *ThumbnailGRPSServer) GetThumbnailsAsync(stream pb.Thumbnails_GetThumbn
 	wg.Wait()
 	close(result)
 	<-waitc
-	log.Error("here end")
+
 	return nil
 }

@@ -19,9 +19,6 @@
 - Добавить .env файл в директорию с проектом и заполнить его данными из .env.example, указав `YOUTUBE_CONFIG_PATH=secrets/your_credentials_file.yaml`
 - Файл `your_credentials_file.yaml` заполнить в форме `api_key:"your key"`
 - Опционально, настроить `congig/config.yaml` под себя
-
-Для запуска сервиса без интеграции с Google Drive достаточно заполнить .env файл,
-оставив переменную `GOOGLE_DRIVE_JSON_FILE_PATH` пустой
 ## Usage
 
 
